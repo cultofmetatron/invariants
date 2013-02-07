@@ -2,8 +2,8 @@ module.exports = function(comparator) {
 // this fle will look up invariants
     var compareFunc = comparator; //the comparison function
     var ArraySplit = require('./sort.js');
-    var arraySplit = (new ArraySplit([0], comparator)).arraySplit;
-
+    var arraySplit1 = new ArraySplit([0], comparator);
+    var arraySplit = arraySplit1.arraySplit;
     //the function to merge count and invariance given
     //two arrays
 
@@ -16,7 +16,7 @@ module.exports = function(comparator) {
 
         */
         console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-        console.log(left);
+        console.log('left' + left);
         //if either is empty, simply return the other array
         if ((left.length == 0) || (right.length == 0)) {
             if (left.length == 0) {
@@ -62,7 +62,7 @@ module.exports = function(comparator) {
 
         while (tracker_left < left[tracker_left]) {
             sortedList.push(left[tracker_left]);
-            //inversions_count = inversions_count + (left.length - tracker_left);
+            //inversions_count = inversions_count ;
             ++tracker_left;
         }
 
@@ -72,7 +72,7 @@ module.exports = function(comparator) {
 
         }
 
-        console.log(inversions_count);
+        console.log('inversions count: ' +inversions_count);
         //returns the merged array + the count of split inversions + the
         return {
             sorted:sortedList,
@@ -86,31 +86,35 @@ module.exports = function(comparator) {
         if (collection.length == 1 || collection.length == 0) {
             return {
                 inversions:0,
-                sorted: 0
-            }
+                sorted:collection
+            };
         }
 
-        /* we want to find the amount of invariants so
+
+
+            /* we want to find the amount of invariants so
          * we get a all the split invariants
          */
         var tree = arraySplit(collection);
-        var collectionAndInversions_left = invCount(tree.left)
+        var collectionAndInversions_left = invCount(tree.left);
+        console.log(collectionAndInversions_left);
         var collectionAndInversions_right = invCount(tree.right);
+        console.log( collectionAndInversions_right);
         //get the count of split invariants
-        invCount_collection = countSplits(collectionAndInversions_left.collection,
-                                          collectionAndInversions_right.collection);
+        invCount_collection = countSplits(collectionAndInversions_left.sorted,
+                                          collectionAndInversions_right.sorted);
 
         //collect the inversions returned from the split inversions
         //collected from the countSplits and the recursive calls
         var inversions = invCount_collection.inversions +
-                     collectionAndInvariants_left.inversions +
-                     collectionAndInvariants_right.inversions;
+                            collectionAndInversions_left.inversions  +
+                            collectionAndInversions_right.inversions;
 
 
         //return an object with the number of splits of the
         return {
-            count: inversions,
-            collection:invCount_collection.sorted
+            inversions: inversions,
+            sorted:invCount_collection.sorted
         }
 
 
