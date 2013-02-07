@@ -62,6 +62,46 @@ assert(function() {
     return array_eq(sort.mergeSort([5,4,3,2,1,0, 4, 5, 6, 12]), [0,1,2,3,4,4,5,5,6, 12]);
 }, true);
 
+var InvarianceFinder = require('./invariants.js');
+var invfinder = new InvarianceFinder(compare);
+
+assert(function() {
+    testValue = [2, 1];
+    console.log('testValue: ' + testValue);
+    var node = invfinder.countSplits([2], [1]);
+    console.log(node.sorted + ' and  ' + node.inversions);
+
+    return 1;
+}, 1)
+
+
+assert(function() {
+    testValue = [2, 1, 4];
+    var node = invfinder.countSplits([5, 7, 9], [4,8 ]);
+    console.log(node.sorted + ' and  ' + node.inversions);
+
+    return 1;
+}, 1)
+
+
+var inversions = invfinder.invCount([1, 3, 4, 8, 3])
+
+
+
+
+
+/*
+assert(function() {
+    var testValue = [2, 1, 3, 4, 5];
+    var expectedValue = [1, 2, 3, 4, 5];
+    var expected_invariants = 1
+    countedCollection = invfinder.invCount(testValue);
+    console.log(testValue + ' entered, expecting ' expectedValue + ' with ' + expected_invariants + ' invariants.');
+
+}, true)
+*/
+
+
 
 
 
