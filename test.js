@@ -86,7 +86,7 @@ assert(function() {
 
 var inversions = invfinder.invCount([2,1]);
 console.log(inversions);
-inversions =     invfinder.invCount([1, 3, 5, 2, 4, 6]);
+inversions =     invfinder.invCount([12, 11, 10, 9,8,7,6,5,4,3,2,1]);
 console.log(inversions);
 
 
